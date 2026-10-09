@@ -6,7 +6,7 @@ import numpy as np
 ###############################################################################
 def read_data_points(file_path): #read file but skip header
     with open(file_path, "r") as file:
-        data =  file.readlines()[1:-1] 
+        data =  file.readlines()[1:] #changed from [1:-1] to [1:] to fix bug removing last coordinate row
 
         x = []
         y = []
