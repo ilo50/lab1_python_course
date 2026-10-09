@@ -1,20 +1,43 @@
-def clean_data(data):
-    x = []
-    y = []
+import re # used by read_test_points
+import numpy as np
 
-    data = [line[1:-2] for line in data] #slice so ( ) \n gets removed
-
-    for coordinate in data:
-        x_coord, y_coord = coordinate.split(", ")
-        x.append(float(x_coord))
-        y.append(float(y_coord))
-
-    return x, y
-
-def read_data_points(file_path):
+###############################################################################
+# open a file, return np array with tuple cords
+###############################################################################
+def read_data_points(file_path): #read file but skip header
     with open(file_path, "r") as file:
-        return file.readlines()[1:-1] #read file but skip header
+        data =  file.readlines()[1:-1] 
 
-def read_test_points(file_path):
+        x = []
+        y = []
+        
+        data = [line[1:-2] for line in data] #slice so ( ) \n gets removed
+        
+        for coordinate in data:
+            x_coord, y_coord = coordinate.split(", ")
+            x.append(float(x_coord))
+            y.append(float(y_coord))
+        
+        data_points = np.array(list(zip(x, y)))
+
+        return data_points
+
+###############################################################################
+# open a file, return np array with tuple cords
+###############################################################################
+def read_test_points(file_path): 
     with open(file_path, "r") as file:
-        return file.readlines() #read file but skip header
+        test_points = file.readlines()[0] 
+
+        matches = re.findall(r'[\d]{1,}', test_points) # find all digits with atleast length 1
+
+        test_x = []
+        test_y = []
+
+        while matches: # alternate between x and y, y is at end of list, pop first
+            test_y.append(matches.pop()) 
+            test_x.append(matches.pop())
+
+    test_points = np.array(list(zip(test_x, test_y)))
+
+    return test_points
