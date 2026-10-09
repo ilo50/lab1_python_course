@@ -31,12 +31,14 @@ def read_test_points(file_path):
 
         matches = re.findall(r'[\d]{1,}', test_points) # find all digits with atleast length 1
 
+        matches = [float(match) for match in matches]
+
         test_x = []
         test_y = []
 
         while matches: # alternate between x and y, y is at end of list, pop first
-            test_y.append(matches.pop()) 
-            test_x.append(matches.pop())
+            test_x.append(matches.pop(0)) #changed to pop(0) and reversed x/y order to keep
+            test_y.append(matches.pop(0)) #the initial coordinate order
 
     test_points = np.array(list(zip(test_x, test_y)))
 
