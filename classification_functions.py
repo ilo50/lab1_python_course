@@ -5,3 +5,21 @@ def calc_distance(point_1, point_2): #refactored to take coordinate pairs rather
     y_diff = point_2[1] - point_1[1]
 
     return sqrt(x_diff**2 + y_diff**2)
+
+###############################################################################
+# classify one test point 
+###############################################################################
+def classify_test_point(test_point, pichu, pikachu):
+
+    distances = []
+    for point in pikachu:
+        distances.append((calc_distance(test_point, point), "Pikachu")) #append tuple with each distance between current test point and pikachu point and species
+
+    for point in pichu:
+        distances.append((calc_distance(test_point, point), "Pichu"))
+
+    distances.sort()
+
+    print(f"Test point: {test_point} qualified as {distances[0][1]}")
+
+       
