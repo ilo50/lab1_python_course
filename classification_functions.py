@@ -22,4 +22,24 @@ def classify_test_point(test_point, pichu, pikachu):
 
     print(f"Test point: {test_point} qualified as {distances[0][1]}")
 
+###############################################################################
+# request test point from user and classify
+###############################################################################
+def request_testpoint():
+
+    x = input("input x coordinate")
+    y = input("input y coordinate")
+
+    try:
+        x = float(x)
+        y = float(y)
+    except ValueError:
+        raise ValueError("Only integer and float is allowed")
+    
+
+    if x < 0 or y < 0:
+        raise ValueError("coordinate cannot contain negative values")
+    
+    return x, y
+
        
