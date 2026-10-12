@@ -56,9 +56,9 @@ def split_data(data):
     test_range = int(len(data) * 0.1)
 
     for i in range(train_range):
-        train.append(data.pop())
+        train.append(data[i])
     for i in range(test_range):
-        test.append(data.pop())
+        test.append(data[i])
         
-    return(test, train)
+    return(train, test)
 
