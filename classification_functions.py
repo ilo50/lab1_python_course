@@ -9,7 +9,7 @@ def calc_distance(point_1, point_2): #refactored to take coordinate pairs rather
 ###############################################################################
 # classify one test point 
 ###############################################################################
-def classify_test_point(test_point, pichu, pikachu, return_distances=False):
+def calculate_test_point(test_point, pichu, pikachu): # calculate distance between one test point and all other points, and return sorted
 
     distances = []
     for point in pikachu:
@@ -20,9 +20,7 @@ def classify_test_point(test_point, pichu, pikachu, return_distances=False):
 
     distances.sort()
 
-    if return_distances: return distances
-
-    print(f"Test point: {test_point} classified as {distances[0][1]}")
+    return distances
 
 ###############################################################################
 # request test point from user and classify
@@ -44,4 +42,43 @@ def request_testpoint():
     
     return x, y
 
-       
+###############################################################################
+# k nearest neighboors
+###############################################################################
+def knn(k, distances):
+    nearest_neighbours = distances[:k]
+
+    pokemons = [x[1] for x in nearest_neighbours]
+    majority = max(pokemons, key=pokemons.count)
+
+    return majority
+
+###############################################################################
+# calculate accuracy using train and test points
+###############################################################################
+def calculate_accuracy(pikachu_train, pikachu_test, pichu_train, pichu_test): #Formula: accuracy = (TP + TN) / Total
+    Tp = 0
+    Fn = 0
+    Fp = 0
+    Tn = 0
+
+    tot = len(pikachu_test) + len(pichu_test)
+    print(pikachu_test)
+
+    for point in pikachu_test:
+        distances = calculate_test_point(point, pichu_train, pikachu_train)
+        species = knn(5, distances)
+        if (species == "Pikachu"):
+            Tp+=1
+        else:
+            Fn+=1
+
+    for point in pichu_test:
+        distances = calculate_test_point(point, pichu_train, pikachu_train)
+        species = knn(5, distances)
+        if (species == "Pichu"):
+            Tn+=1
+        else:
+            Fp+=1
+
+    return (f"{((Tp + Tn)/tot)*100}%")
