@@ -9,7 +9,7 @@ def calc_distance(point_1, point_2): #refactored to take coordinate pairs rather
 ###############################################################################
 # classify one test point 
 ###############################################################################
-def classify_test_point(test_point, pichu, pikachu):
+def classify_test_point(test_point, pichu, pikachu, return_distances=False):
 
     distances = []
     for point in pikachu:
@@ -19,6 +19,8 @@ def classify_test_point(test_point, pichu, pikachu):
         distances.append((calc_distance(test_point, point), "Pichu"))
 
     distances.sort()
+
+    if return_distances: return distances
 
     print(f"Test point: {test_point} classified as {distances[0][1]}")
 
