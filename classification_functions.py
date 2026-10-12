@@ -63,7 +63,6 @@ def calculate_accuracy(pikachu_train, pikachu_test, pichu_train, pichu_test): #F
     Tn = 0
 
     tot = len(pikachu_test) + len(pichu_test)
-    print(pikachu_test)
 
     for point in pikachu_test:
         distances = calculate_test_point(point, pichu_train, pikachu_train)
@@ -81,4 +80,4 @@ def calculate_accuracy(pikachu_train, pikachu_test, pichu_train, pichu_test): #F
         else:
             Fp+=1
 
-    return (f"{((Tp + Tn)/tot)*100}%")
+    return (((Tp + Tn)/tot))
