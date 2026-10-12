@@ -46,19 +46,7 @@ def read_test_points(file_path):
 # Split data, train and test
 ###############################################################################
 def split_data(data):
+    np.random.shuffle(data) # randomize all data
 
-    np.random.shuffle(data) # randomize all data, then we can just pop in regular order
-    
-    test = []
-    train = []
-
-    train_range =  int(len(data) * 0.9)
-    test_range = int(len(data) * 0.1)
-
-    for i in range(train_range):
-        train.append(data[i])
-    for i in range(test_range):
-        test.append(data[i])
-        
+    test, train = np.split(data, [5]) #split at index 5 into two variables
     return(train, test)
-
