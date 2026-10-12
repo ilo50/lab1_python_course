@@ -20,7 +20,7 @@ def classify_test_point(test_point, pichu, pikachu):
 
     distances.sort()
 
-    print(f"Test point: {test_point} qualified as {distances[0][1]}")
+    print(f"Test point: {test_point} classified as {distances[0][1]}")
 
 ###############################################################################
 # request test point from user and classify
