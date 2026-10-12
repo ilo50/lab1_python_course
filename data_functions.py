@@ -41,3 +41,24 @@ def read_test_points(file_path):
     test_points = np.array(list(zip(test_x, test_y)))
 
     return test_points
+
+###############################################################################
+# Split data, train and test
+###############################################################################
+def split_data(data):
+
+    np.random.shuffle(data) # randomize all data, then we can just pop in regular order
+    
+    test = []
+    train = []
+
+    train_range =  int(len(data) * 0.9)
+    test_range = int(len(data) * 0.1)
+
+    for i in range(train_range):
+        train.append(data.pop())
+    for i in range(test_range):
+        test.append(data.pop())
+        
+    return(test, train)
+
