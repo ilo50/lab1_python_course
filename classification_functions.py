@@ -1,16 +1,19 @@
 from math import sqrt
+import numpy as np
 
-def calc_distance(point_1, point_2): #refactored to take coordinate pairs rather than separate x/y values
+def calc_distance(point_1: np.ndarray, point_2: np.ndarray):
+    """
+    Calculates the Euclidian distance between two points.
+    """
     x_diff = point_2[0] - point_1[0]
     y_diff = point_2[1] - point_1[1]
 
     return sqrt(x_diff**2 + y_diff**2)
 
-###############################################################################
-# classify one test point 
-###############################################################################
-def calculate_test_point(test_point, pichu, pikachu): # calculate distance between one test point and all other points, and return sorted
-
+def calculate_test_point(test_point: tuple[int, int], pichu: np.ndarray, pikachu: np.ndarray):
+    """
+    Calculate distance between one test point and all other points, and return a sorted list.
+    """
     distances = []
     for point in pikachu:
         distances.append((calc_distance(test_point, point), "Pikachu")) #append tuple with each distance between current test point and pikachu point and species
@@ -22,11 +25,10 @@ def calculate_test_point(test_point, pichu, pikachu): # calculate distance betwe
 
     return distances
 
-###############################################################################
-# request test point from user and classify
-###############################################################################
 def request_testpoint():
-
+    """
+    Gets test point coordinates from user.
+    """
     x = input("input x coordinate")
     y = input("input y coordinate")
 
@@ -42,10 +44,10 @@ def request_testpoint():
     
     return x, y
 
-###############################################################################
-# k nearest neighboors
-###############################################################################
-def knn(k, distances):
+def knn(k: int, distances: list):
+    """
+    Calculates K nearest neighbours based on a list of distances.
+    """
     nearest_neighbours = distances[:k]
 
     pokemons = [x[1] for x in nearest_neighbours]
@@ -53,10 +55,11 @@ def knn(k, distances):
 
     return majority
 
-###############################################################################
-# calculate accuracy using train and test points
-###############################################################################
-def calculate_accuracy(pikachu_train, pikachu_test, pichu_train, pichu_test): #Formula: accuracy = (TP + TN) / Total
+def calculate_accuracy(pikachu_train: np.ndarray[float], pikachu_test: np.ndarray[float], pichu_train: np.ndarray[float], pichu_test: np.ndarray[float]):
+    """
+    Calculate accuracy using train and test points.\n
+    Formula: accuracy = (TP + TN) / Total
+    """
     Tp = 0
     Fn = 0
     Fp = 0
@@ -80,4 +83,4 @@ def calculate_accuracy(pikachu_train, pikachu_test, pichu_train, pichu_test): #F
         else:
             Fp+=1
 
-    return (((Tp + Tn)/tot))
+    return ((Tp + Tn)/tot)

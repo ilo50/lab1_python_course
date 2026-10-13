@@ -1,12 +1,12 @@
 import re # used by read_test_points
 import numpy as np
 
-###############################################################################
-# open a file, return np array with tuple cords
-###############################################################################
-def read_data_points(file_path): #read file but skip header
+def read_data_points(file_path: str):
+    """
+    Opens a file of coordinates and returns an array of tuple coordinates.
+    """
     with open(file_path, "r") as file:
-        data =  file.readlines()[1:] #changed from [1:-1] to [1:] to fix bug removing last coordinate row
+        data =  file.readlines()[1:] #skip first row
 
         x = []
         y = []
@@ -22,10 +22,10 @@ def read_data_points(file_path): #read file but skip header
 
         return data_points
 
-###############################################################################
-# open a file, return np array with tuple cords
-###############################################################################
-def read_test_points(file_path): 
+def read_test_points(file_path: str):
+    """
+    Reads a single-row file of test point tuples and returns an NDArray.
+    """
     with open(file_path, "r") as file:
         test_points = file.readlines()[0] 
 
@@ -42,10 +42,10 @@ def read_test_points(file_path):
 
     return test_points
 
-###############################################################################
-# Split data, train and test
-###############################################################################
-def split_data(data):
+def split_data(data: np.ndarray):
+    """
+    Shuffles and splits data into two NDArrays of the first five points and the remaining points.
+    """
     np.random.shuffle(data) # randomize all data
 
     test, train = np.split(data, [5]) #split at index 5 into two variables
